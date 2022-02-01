@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react/cjs/react.production.min';
+import FeedbackOptions from './components/feedBack/feedBack';
+import Section from './components/section/section';
+import Statistics from './components/statistics/statistics';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+  appendFeedback = option => {
+    this.setState(prevState => {
+      return { [option]: prevState[option] + 1 };
+    });
+  };
+  totalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
+  };
+  positivePercentage = total => {
+    const { good, neutral } = this.state;
+    return total ? Math.round(((good + neutral) * 100) / total) : 0;
+  };
+
+  render() {
+    const options = Object.keys(this.state);
+    const { good, neutral, bad } = this.state;
+    const total = this.totalFeedback();
+    const positiveFeedback = this.positivePercentage(total);
+
+    return (
+      <Section title="Please leave feedback">
+        <FeedbackOptions
+          options={options}
+          onLeaveFeedback={this.appendFeedback}
+        />
+
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={total}
+          positivePercentage={positiveFeedback}
+        />
+      </Section>
+    );
+  }
 }
-
 export default App;
