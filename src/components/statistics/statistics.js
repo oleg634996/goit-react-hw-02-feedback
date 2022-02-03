@@ -1,4 +1,4 @@
-import Notification from '../notification/notification';
+import Notification from '../Notification/Notification';
 import PropTypes from 'prop-types';
 export default function Statistics({
   good,

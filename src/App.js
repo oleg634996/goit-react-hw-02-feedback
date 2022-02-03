@@ -1,7 +1,7 @@
 import { Component } from 'react/cjs/react.production.min';
-import FeedbackOptions from './components/feedBack/feedBack';
-import Section from './components/section/section';
-import Statistics from './components/statistics/statistics';
+import FeedbackOptions from './components/FeedBack/FeedBack';
+import Section from './components/Section/Section';
+import Statistics from './components/Statistics/Statistics';
 
 class App extends Component {
   state = {
